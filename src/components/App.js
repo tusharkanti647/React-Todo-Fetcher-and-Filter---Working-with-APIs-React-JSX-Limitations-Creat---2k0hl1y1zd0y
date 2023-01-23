@@ -28,7 +28,7 @@ const ListTodo = (props) => {
                 {newList.map((item, index) => <Todo key={index} id={item.id} title={item.title} completed={item.completed} />)}
             </ol>
 
-            <label htmlFor='completed-checkbox'>completed-checkbox</label>
+    c        <label htmlFor='completed-checkbox'>completed-checkbox</label>
             <input type="checkbox" id="completed-checkbox" checked={completedIsCheck} onChange={() => setCompletedIsCheck(!completedIsCheck)} />
             <label htmlFor='incompleted-checkbox'>incompleted-checkbox</label>
             <input type="checkbox" id="incompleted-checkbox" checked={incompletedIsCheck} onChange={() => setIncompletedIsCheck(!incompletedIsCheck)} />
@@ -40,7 +40,7 @@ const App = () => {
 
 
 
-    const listObjFun = () => {
+    onst listObjFun = () => {
 
         fetch(url)
             .then((result) => result.json())
