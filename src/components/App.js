@@ -6,54 +6,58 @@ import { Todo } from './Todo';
 const url = "https://jsonplaceholder.typicode.com/todos";
 
 const ListTodo = (props) => {
-    // const { setLoding } = props;
+    let { list } = props;
 
+    const [completedIsCheck, setCompletedIsCheck] = useState(true);
+    const [incompletedIsCheck, setIncompletedIsCheck] = useState(true);
+
+
+    let newList = list.filter((item) => {
+        return (completedIsCheck === true && item.completed === true) || (incompletedIsCheck === true && item.completed === false);
+    })
+
+    if (completedIsCheck === true && incompletedIsCheck === true) {
+        newList.splice(20);
+    }
 
 
     return (
         <div id="filter-holder">
+
+            <ol>
+                {newList.map((item, index) => <Todo key={index} id={item.id} title={item.title} completed={item.completed} />)}
+            </ol>
+
             <label htmlFor='completed-checkbox'>completed-checkbox</label>
-            <input type="checkbox" id="completed-checkbox" checked />
+            <input type="checkbox" id="completed-checkbox" checked={completedIsCheck} onChange={() => setCompletedIsCheck(!completedIsCheck)} />
             <label htmlFor='incompleted-checkbox'>incompleted-checkbox</label>
-            <input type="checkbox" id="incompleted-checkbox" checked />
+            <input type="checkbox" id="incompleted-checkbox" checked={incompletedIsCheck} onChange={() => setIncompletedIsCheck(!incompletedIsCheck)} />
         </div>)
 }
 const App = () => {
     const [loding, setLoding] = useState(true);
     const [list, setList] = useState([]);
 
+
+
     const listObjFun = () => {
+
         fetch(url)
-            .than((result) => result.json())
-            .than((json) => {
-                setList(json)
+            .then((result) => result.json())
+            .then((json) => {
+                setList(json);
                 setLoding(false);
             })
     }
 
     useEffect(listObjFun, []);
-    /*
-        const callUrl = () => {
-    
-            setLoading(true);
-            fetch(makeURL(typeValue))
-              .then((result) => result.json())
-              .then((json) => {
-                console.log(count);
-                console.log(json);
-                setFatchvalue(json.activity);
-                setLoading(false);
-              })
-          }
-        
-          useEffect(callUrl, [typeValue, count]);
-    */
 
-    console.log(list);
+
+
 
     return (
         <div id='main'>
-            {loding ? <Loader /> : <ListTodo loding={loding} />}
+            {loding ? <Loader /> : <ListTodo list={list} />}
         </div>
     )
 
