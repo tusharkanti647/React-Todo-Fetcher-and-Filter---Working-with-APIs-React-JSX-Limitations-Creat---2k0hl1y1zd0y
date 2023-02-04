@@ -1,13 +1,10 @@
-import React from 'react';
+ import React from 'react';
 
-export const Todo = (props) => {
-
+ export const Todo  = ({title,completed,id}) =>{
     return (
-        <li>
-            <div className="todo" id={props.id}>
-                <div className="todo-text">{props.title}</div>
-                <div className="todo-status">{props.completed ? "Completed" : "InCompleted"}</div>
-            </div>
-        </li>
+        <div className="todo" id={`todo-${id}`}>
+            <div className="todo-text">{title}</div>
+            <div className="todo-status">{completed ? 'Complete' : 'Incomplete'}</div>
+        </div>
     )
-}
+ }
